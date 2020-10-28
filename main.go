@@ -52,6 +52,7 @@ import (
 	rcfwr "github.com/Azure/azure-service-operator/pkg/resourcemanager/rediscaches/firewallrule"
 	rediscache "github.com/Azure/azure-service-operator/pkg/resourcemanager/rediscaches/redis"
 	resourcemanagerresourcegroup "github.com/Azure/azure-service-operator/pkg/resourcemanager/resourcegroups"
+	singularity "github.com/Azure/azure-service-operator/pkg/resourcemanager/singularity"
 	blobContainerManager "github.com/Azure/azure-service-operator/pkg/resourcemanager/storages/blobcontainer"
 	storageaccountManager "github.com/Azure/azure-service-operator/pkg/resourcemanager/storages/storageaccount"
 	vm "github.com/Azure/azure-service-operator/pkg/resourcemanager/vm"
@@ -909,6 +910,53 @@ func main() {
 		os.Exit(1)
 	}
 
+	if err = (&controllers.SingularityAccountReconciler{
+		Reconciler: &controllers.AsyncReconciler{
+			Client:      mgr.GetClient(),
+			AzureClient: singularity.NewSingulartiyAccountlient(),
+			Telemetry: telemetry.InitializeTelemetryDefault(
+				"SingularityAccount",
+				ctrl.Log.WithName("controllers").WithName("SingularityAccount"),
+			),
+			Recorder: mgr.GetEventRecorderFor("SingularityAccount-controller"),
+			Scheme:   scheme,
+		},
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "SingularityAccount")
+		os.Exit(1)
+	}
+
+	if err = (&controllers.SingularityJobReconciler{
+		Reconciler: &controllers.AsyncReconciler{
+			Client:      mgr.GetClient(),
+			AzureClient: singularity.NewSingulartiyJoblient(),
+			Telemetry: telemetry.InitializeTelemetryDefault(
+				"SingularityJob",
+				ctrl.Log.WithName("controllers").WithName("SingularityAccount"),
+			),
+			Recorder: mgr.GetEventRecorderFor("SingularityJob-controller"),
+			Scheme:   scheme,
+		},
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "SingularityJob")
+		os.Exit(1)
+	}
+
+	if err = (&controllers.SingularityStorageContainerReconciler{
+		Reconciler: &controllers.AsyncReconciler{
+			Client:      mgr.GetClient(),
+			AzureClient: singularity.NewSingulartiyStorageClient(),
+			Telemetry: telemetry.InitializeTelemetryDefault(
+				"SingularityStorageContainer",
+				ctrl.Log.WithName("controllers").WithName("SingularityStorageContainer"),
+			),
+			Recorder: mgr.GetEventRecorderFor("SingularityJob-controller"),
+			Scheme:   scheme,
+		},
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "SingularityStorageContainer")
+		os.Exit(1)
+	}
 	// +kubebuilder:scaffold:builder
 
 	setupLog.Info("starting manager")

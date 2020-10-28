@@ -1,0 +1,24 @@
+# permissions for end users to edit singularityaccounts.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: singularityaccount-editor-role
+rules:
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularityaccounts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularityaccounts/status
+  verbs:
+  - get

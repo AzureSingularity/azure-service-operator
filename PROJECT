@@ -135,4 +135,13 @@ resources:
 - group: azure
   kind: AppInsightsApiKey
   version: v1alpha1
+- group: azure
+  kind: SingularityAccount
+  version: v1alpha1
+- group: azure
+  kind: SingularityJob
+  version: v1alpha1
+- group: azure
+  kind: SingularityStorageContainer
+  version: v1alpha1
 version: "2"
