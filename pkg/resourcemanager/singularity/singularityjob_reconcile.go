@@ -51,6 +51,12 @@ func (sa *azureSingularityJobManager) Ensure(ctx context.Context, obj runtime.Ob
 		instance.Status.SpecHash = hash
 		instance.Status.ResourceId = *stor.ID
 		instance.Status.PollingURL = ""
+		instance.Endpoints = azurev1alpha1.JobEndpoints{
+			NotebookEndpoint:    *stor.NotebookEndpoint,
+			GrafanaEndpoint:     *stor.GrafanaEndpoint,
+			TensorBoardEndpoint: *stor.TensorBoardEndpoint,
+			JobLogsEndpoint:     *stor.JobLogsEndpoint,
+		}
 		return true, nil
 	}
 

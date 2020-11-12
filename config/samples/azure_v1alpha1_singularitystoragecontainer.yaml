@@ -1,7 +1,10 @@
 apiVersion: azure.microsoft.com/v1alpha1
 kind: SingularityStorageContainer
 metadata:
-  name: singularitystoragecontainer-sample
+  name: aso-singularitycontainer-sample
 spec:
-  # Add fields here
-  foo: bar
+  accountName: aso-singularityaccount-sample
+  resourceGroup: aso-resourcegroup-azure-operators
+  description: test
+  tier: Cold
+  location: eastus

@@ -1,7 +1,24 @@
 apiVersion: azure.microsoft.com/v1alpha1
 kind: SingularityJob
 metadata:
-  name: singularityjob-sample
+  name: aso-singularityjob-sample
 spec:
-  # Add fields here
-  foo: bar
+  accountName: aso-singularityaccount-sample
+  resourceGroup: aso-resourcegroup-azure-operators
+  placementPolicies:
+    - location: eastus
+      instanceTypes: 
+        - instanceType: "AISupercomputer.NC6_v3"
+          scalePolicy:
+            autoScale: false
+            currentInstanceTypeCount: 1
+  frameworkImage:
+    kind: "PyTorch"
+  maxJobExecutionTime: 4
+  description: test
+  codeLocation:
+    mount:
+      path: /var/data/testmount1
+    source:
+      kind: AzureAISupercomputerStorage
+      storageContainerName: aso-singularitycontainer-sample

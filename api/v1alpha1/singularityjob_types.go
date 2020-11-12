@@ -41,8 +41,9 @@ type SingularityJob struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   SingularityJobSpec `json:"spec,omitempty"`
-	Status ASOStatus          `json:"status,omitempty"`
+	Spec      SingularityJobSpec `json:"spec,omitempty"`
+	Status    ASOStatus          `json:"status,omitempty"`
+	Endpoints JobEndpoints       `json:"endpoints,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -52,6 +53,13 @@ type SingularityJobList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []SingularityJob `json:"items"`
+}
+
+type JobEndpoints struct {
+	NotebookEndpoint    string `json:"notebookEndpoint,omitempty"`
+	TensorBoardEndpoint string `json:"tensorBoardEndpoint,omitempty"`
+	GrafanaEndpoint     string `json:"grafanaEndpoint,omitempty"`
+	JobLogsEndpoint     string `json:"jobLogsEndpoint,omitempty"`
 }
 
 type JobFrameworkImage struct {
