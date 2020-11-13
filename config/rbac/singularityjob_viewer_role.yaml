@@ -1,0 +1,20 @@
+# permissions for end users to view singularityjobs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: singularityjob-viewer-role
+rules:
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularityjobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularityjobs/status
+  verbs:
+  - get

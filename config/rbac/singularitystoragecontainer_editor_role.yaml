@@ -1,0 +1,24 @@
+# permissions for end users to edit singularitystoragecontainers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: singularitystoragecontainer-editor-role
+rules:
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularitystoragecontainers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularitystoragecontainers/status
+  verbs:
+  - get

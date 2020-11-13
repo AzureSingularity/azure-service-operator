@@ -1,0 +1,20 @@
+# permissions for end users to view singularitystoragecontainers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: singularitystoragecontainer-viewer-role
+rules:
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularitystoragecontainers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - azure.microsoft.com
+  resources:
+  - singularitystoragecontainers/status
+  verbs:
+  - get

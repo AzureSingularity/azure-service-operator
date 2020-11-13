@@ -1,0 +1,10 @@
+apiVersion: azure.microsoft.com/v1alpha1
+kind: SingularityStorageContainer
+metadata:
+  name: aso-singularitycontainer-sample
+spec:
+  accountName: aso-singularityaccount-sample
+  resourceGroup: aso-resourcegroup-azure-operators
+  description: test
+  tier: Cold
+  location: eastus

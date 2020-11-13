@@ -4,7 +4,9 @@ FROM golang:1.13.7 as builder
 WORKDIR /workspace/
 # Copy the Go Modules manifests
 COPY go.mod go.mod
+COPY pkg/resourcemanager/singularity/microsoftazuremanagementaisupercomputer/go.mod pkg/resourcemanager/singularity/microsoftazuremanagementaisupercomputer/go.mod
 COPY go.sum go.sum
+COPY pkg/resourcemanager/singularity/microsoftazuremanagementaisupercomputer/go.sum pkg/resourcemanager/singularity/microsoftazuremanagementaisupercomputer/go.sum
 # cache deps before building and copying source so that we don't need to re-download as much
 # and so that source changes don't invalidate our downloaded layer
 RUN go mod download
